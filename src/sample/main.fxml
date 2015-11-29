@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<HBox fx:controller="sample.MainController" xmlns:fx="http://www.w3.org/2001/XInclude">
+<fx:include fx:id="dialog" source="view.fxml"/>
+    <fx:include fx:id="dialog2" source="view2.fxml"/>
+</HBox>
