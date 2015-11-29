@@ -10,10 +10,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.Model.Chart;
-import sample.Model.CollectionStudent;
-import sample.Model.Observer.TableData;
-import sample.Model.Students;
+import sample.model.Chart;
+import sample.model.CollectionStudent;
+import sample.model.observer.TableData;
+import sample.model.Students;
 
 import javax.swing.*;
 import java.net.URL;
@@ -41,7 +41,26 @@ public class Controller implements Initializable {
             int n = Integer.valueOf(ID_NUM_STUDENTS.getText().toString());
             if(n < 1 || n > 10)
                 n = 5;
-            students.generate();
+
+            if(n != chart1.getSize()) {
+                students = new Students(n);
+                chart1 = new Chart(students);
+                chart2 = new Chart(students);
+                model.setChart1(chart1);
+                model.setChart2(chart2);
+                students.setObserver(chart1);
+                students.setObserver(chart2);
+                controller2.setModel(model);
+                students.generate();
+                setTableData();
+                model.getChart2().remove();
+                model.getChart1().remove();
+                ID_FIRST_COL.setVisible(false);
+                ID_FIRST_COL.setVisible(true);
+                ID_CHART1.setSelected(false);
+                ID_CHART2.setSelected(false);
+            }else
+                students.generate();
 
             chart1.informuj();
             chart2.informuj();
@@ -78,11 +97,8 @@ public class Controller implements Initializable {
         students.generate();
         model.getChart2().remove();
         model.getChart1().remove();
-        tableDatas = new ArrayList<>();
-        for(int i = 0;i < students.getSize();++i){
-            tableDatas.add(new TableData(i,students));
-        }
-        observableList = FXCollections.observableList(tableDatas);
+
+        setTableData();
         this.ID_FIRST_COL.setCellValueFactory(new PropertyValueFactory<TableData, String>("Name"));
         this.ID_SECOND_COL.setCellValueFactory(new PropertyValueFactory<TableData, String>("Mark"));
         ID_TAB.setItems(observableList);
@@ -107,8 +123,12 @@ public class Controller implements Initializable {
     }
 
     private void setTableData(){
+        tableDatas = new ArrayList<>();
         for(int i = 0;i < students.getSize();++i){
-            tableDatas.get(i).setStudents(students);
+            tableDatas.add(new TableData(i, students));
         }
+        observableList = FXCollections.observableList(tableDatas);
     }
+
+
 }

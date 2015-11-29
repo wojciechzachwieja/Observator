@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import sample.Model.CollectionStudent;
+import sample.model.CollectionStudent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,5 +54,9 @@ public class Controller2 implements Initializable {
         setChart1();
         setChart2();
         model.getChart1().informuj();
+    }
+
+    public void setModel(CollectionStudent model) {
+        this.model = model;
     }
 }

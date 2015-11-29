@@ -3,7 +3,6 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import sample.Model.CollectionStudent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
